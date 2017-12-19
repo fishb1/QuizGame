@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fb.ru.quizgame.QuizActivity"
+    android:padding="8dp"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@null"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/background_question"
+        android:padding="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"/>
+
+    <GridView
+        android:id="@+id/lo_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="5dp"
+        android:layout_below="@id/tv_question"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false">
+
+    </GridView>
+
+    <ProgressBar
+        android:id="@+id/pb_time_to_hint"
+        style="@style/ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@id/lo_hint"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/tv_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_answer"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:background="@drawable/background_question"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

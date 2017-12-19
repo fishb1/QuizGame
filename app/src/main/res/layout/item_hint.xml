@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_hint"
+    android:clickable="true"
+    android:focusable="true"
+    android:onClick="onClick">
+
+
+    <TextView
+        android:id="@+id/tv_hint_asterisk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:minHeight="60dp"
+        android:text="@string/secret_sign"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/tv_hint_letter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:minHeight="60dp"
+        android:text="@null"
+        android:visibility="gone"/>
+
+</ViewAnimator>
