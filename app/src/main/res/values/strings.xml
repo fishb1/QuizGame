@@ -3,4 +3,6 @@
     <string name="hint_answer">Введи ответ сюда</string>
     <string name="secret_sign">\?</string>
     <string name="go_quiz">Go quiz!</string>
+    <string name="button_answer_text"><![CDATA[>]]></string>
+    <string name="button_next_text"><![CDATA[>>]]></string>
 </resources>

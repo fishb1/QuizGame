@@ -9,7 +9,7 @@
     </style>
 
     <style name="ProgressBar" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:progressDrawable">@drawable/progress_bar_background</item>
+        <item name="android:progressDrawable">@drawable/bg_timer</item>
     </style>
 
 </resources>
