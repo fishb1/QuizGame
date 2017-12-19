@@ -3,10 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_hint"
-    android:clickable="true"
-    android:focusable="true"
-    android:onClick="onClick">
+    android:background="@drawable/background_hint">
 
 
     <TextView
@@ -18,9 +15,8 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="24sp"
-        android:minHeight="60dp"
-        android:text="@string/secret_sign"
-        android:visibility="visible"/>
+        android:minHeight="50dp"
+        android:text="@string/secret_sign" />
 
     <TextView
         android:id="@+id/tv_hint_letter"
@@ -31,8 +27,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="24sp"
-        android:minHeight="60dp"
-        android:text="@null"
-        android:visibility="gone"/>
+        android:minHeight="50dp"
+        android:text="@null" />
 
 </ViewAnimator>

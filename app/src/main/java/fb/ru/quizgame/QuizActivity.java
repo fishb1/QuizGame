@@ -6,16 +6,14 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.ViewAnimator;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,69 +29,100 @@ public class QuizActivity extends AppCompatActivity {
     @BindView(R.id.tv_question) TextView mQuestion;
     @BindView(R.id.lo_hint) GridView mHint;
     @BindView(R.id.pb_time_to_hint) ProgressBar mTimeToHint;
-    private int time;
-    private boolean mStarted;
+    private int mTime;
+    private boolean isAnimating;
+    ArrayAdapter<String> mAdapter;
+    Timer mTimer;
+    TimerTask mTimerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_quiz);
         ButterKnife.bind(this);
-
-        String[] letters = {"П", "И", "З", "Д", "Е", "Ц"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_hint, R.id.tv_hint_letter, letters);
-        mHint.setAdapter(adapter);
-        mHint.setNumColumns(adapter.getCount());
-        mQuestion.setText("Тобi пiзда, москалик!");
-        final Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
+        mAdapter = new ArrayAdapter<>(this, R.layout.item_hint, R.id.tv_hint_letter);
+        mHint.setAdapter(mAdapter);
+        mHint.setOnItemClickListener((parent, view, position, id) -> {
+            if (!isAnimating) {
+                isAnimating = true;
+                AnimatorSet flipOut = new AnimatorSet();
+                flipOut.play(ObjectAnimator.ofFloat(view, View.ROTATION_Y, 0, 90));
+                flipOut.setDuration(250);
+                flipOut.setInterpolator(new AccelerateInterpolator());
+                flipOut.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        ((ViewAnimator) view).showNext();
+                        AnimatorSet flipIn = new AnimatorSet();
+                        flipIn.play(ObjectAnimator.ofFloat(view, View.ROTATION_Y, -90, 0));
+                        flipIn.setDuration(250);
+                        flipIn.setInterpolator(new DecelerateInterpolator());
+                        flipIn.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                isAnimating = false;
+                            }
+                        });
+                        flipIn.start();
+                    }
+                });
+                flipOut.start();
+            }
+        });
+        mTimerTask = new TimerTask() {
             @Override
             public void run() {
-                if (++time > 100) {
-                    timer.cancel();
+                if (++mTime > 100) {
+                    mTimer.cancel();
                 } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mTimeToHint.setProgress(time);
-                        }
-                    });
+                    runOnUiThread(() -> mTimeToHint.setProgress(mTime));
                 }
             }
         };
-        timer.schedule(task, 0, TimeUnit.SECONDS.toMillis(1));
     }
 
-    public void onClick(final View view) {
-        if (!mStarted) {
-            mStarted = true;
-            final AnimatorSet set = new AnimatorSet();
-//            final ObjectAnimator flipOut = ;
-//            Log.d(TAG, "flipOut: "  + flipOut);
-            set.playSequentially(ObjectAnimator.ofFloat(view, View.ROTATION_Y, 0, 90), ObjectAnimator.ofFloat(view, View.ROTATION_Y, -90, 0));
-            set.setDuration(250);
-            set.setInterpolator(new DecelerateInterpolator());
-            set.addListener(new AnimatorListenerAdapter() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Start the game!
+        nextQuestion();
+    }
 
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    mStarted = false;
-//                    Log.d(TAG, "Aminator: "  + animator);
-//                    if (animator == flipOut) {
-//                        ViewGroup card = (ViewGroup) view;
-//                        View asterisk = card.findViewById(R.id.tv_hint_asterisk);
-//                        boolean hidden = asterisk.getVisibility() == View.VISIBLE;
-//                        card.findViewById(R.id.tv_hint_asterisk).setVisibility(hidden ? View.GONE : View.VISIBLE);
-//                        card.findViewById(R.id.tv_hint_letter).setVisibility(hidden ? View.VISIBLE : View.GONE);
-//                        set.play();
-//                        set.resume();
-//                    } else {
-//                        mStarted = false;
-//                    }
-                }
-            });
-            set.start();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopTimer();
+    }
+
+    private void nextQuestion() {
+        stopTimer();
+        //
+        QuestionRepository repository = new QuestionRepository(this);
+        String task = repository.getQuestion();
+        String[] parts = task.split("\\*");
+        // Question
+        String question = parts[0];
+        question = question.substring(0, 1).toUpperCase() + question.substring(1);
+        // Answer
+        String answer = parts[1];
+        mAdapter.clear();
+        mAdapter.addAll(answer.toUpperCase().split("(?!^)"));
+        mHint.setNumColumns(mAdapter.getCount());
+        mQuestion.setText(question);
+        //
+        startTimer();
+    }
+
+    private void stopTimer() {
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
         }
+    }
+
+    private void startTimer() {
+        mTimer = new Timer();
+        mTime = 0;
+        mTimer.schedule(mTimerTask, TimeUnit.SECONDS.toMillis(1));
     }
 }
