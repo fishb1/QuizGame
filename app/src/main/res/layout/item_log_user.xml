@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_game_log_item"
-    android:textColor="@color/black"
-    android:layout_marginTop="5dp"
-    android:elevation="1dp"
-    android:padding="5dp" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable name="entry" type="fb.ru.quizgame.GameLogFragment.LogEntry" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{entry.time}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_game_log_item"
+            android:elevation="1dp"
+            android:text="@{entry.text}"
+            android:layout_margin="4dp"
+            android:padding="4dp" />
+    </LinearLayout>
+
+</layout>

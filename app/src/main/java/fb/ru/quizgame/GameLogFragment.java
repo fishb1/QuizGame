@@ -1,16 +1,16 @@
 package fb.ru.quizgame;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 
 /**
  *
@@ -27,7 +28,7 @@ public class GameLogFragment extends Fragment {
 
     public static final int MSG_TYPE_BOT = 0;
     public static final int MSG_TYPE_USER = 1;
-    public static final SparseIntArray RESOURCES = new SparseIntArray();
+    private static final SparseIntArray RESOURCES = new SparseIntArray();
     static {
         RESOURCES.put(MSG_TYPE_BOT, R.layout.item_log_bot);
         RESOURCES.put(MSG_TYPE_USER, R.layout.item_log_user);
@@ -47,48 +48,48 @@ public class GameLogFragment extends Fragment {
     }
 
     public void appendToLog(int msgType, CharSequence text) {
-        DateFormat format = new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
-        mAdapter.addEntry(new LogEntry(msgType, "[" + format.format(new Date()) + "] " + text));
+        DateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        mAdapter.addEntry(new LogEntry(msgType, text, format.format(new Date())));
     }
 
-    static class LogEntry {
+    public static class LogEntry {
 
-        int type;
-        CharSequence text;
+        public final int type;
+        public final CharSequence text;
+        public final String time;
 
-        LogEntry(int type, CharSequence text) {
+        LogEntry(int type, CharSequence text, String time) {
             this.type = type;
             this.text = text;
+            this.time = time;
         }
     }
 
-    private static class GameLogAdapter extends RecyclerView.Adapter<GameLogAdapter.ViewHolder> {
+    private static class GameLogAdapter extends RecyclerView.Adapter<GameLogAdapter.BindingHolder> {
 
-        private static final String TAG = "GameLogAdapter";
+        static class BindingHolder extends RecyclerView.ViewHolder {
 
-        static class ViewHolder extends RecyclerView.ViewHolder {
+            ViewDataBinding mDataBinging;
 
-            TextView mTextView;
-
-            ViewHolder(TextView itemView) {
+            BindingHolder(View itemView) {
                 super(itemView);
-                mTextView = itemView;
+                mDataBinging = DataBindingUtil.bind(itemView);
             }
         }
 
         List<LogEntry> mData = new ArrayList<>();
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.d(TAG, "ViewType: " + viewType);
-            TextView view = (TextView) LayoutInflater.from(parent.getContext()).inflate(
-                    RESOURCES.get(viewType), parent, false);
-            return new ViewHolder(view);
+        public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            View view = inflater.inflate(RESOURCES.get(viewType), parent, false);
+            return new BindingHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.mTextView.setText(mData.get(position).text);
+        public void onBindViewHolder(BindingHolder holder, int position) {
+            holder.mDataBinging.setVariable(BR.entry, mData.get(position));
+            holder.mDataBinging.executePendingBindings();
         }
 
         @Override

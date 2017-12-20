@@ -87,11 +87,14 @@ public class QuizActivity extends AppCompatActivity {
             String answer = String.valueOf(mInputAnswer.getText());
             mInputAnswer.setText("");
             if (TextUtils.equals(mAnswer, answer)) {
-                appendToLog(GameLogFragment.MSG_TYPE_USER, answer);
-                appendToLog(GameLogFragment.MSG_TYPE_BOT, "Это правильный ответ, время: " + mTime + " секунд");
+                appendToLog(GameLogFragment.MSG_TYPE_USER, Util.getColoredText(answer,
+                        getResources().getColor(R.color.colorPrimary)));
+                appendToLog(GameLogFragment.MSG_TYPE_BOT,
+                        "Это правильный ответ, время: " + mTime + " секунд");
                 nextQuestion();
             } else {
-                appendToLog(GameLogFragment.MSG_TYPE_USER, Util.getColoredText(answer, getResources().getColor(R.color.colorAccent)));
+                appendToLog(GameLogFragment.MSG_TYPE_USER, Util.getColoredText(answer,
+                        getResources().getColor(R.color.colorAccent)));
             }
         });
         appendToLog(GameLogFragment.MSG_TYPE_BOT, "Начата новая викторина!");
