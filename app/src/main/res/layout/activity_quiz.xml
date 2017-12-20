@@ -21,28 +21,17 @@
         android:layout_below="@id/tv_question"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:clipToPadding="false">
-
-    </GridView>
-
-    <ProgressBar
-        android:id="@+id/pb_time_to_hint"
-        style="@style/Timer"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_below="@id/gw_hint" />
+        android:paddingBottom="4dp"
+        android:clipChildren="false"
+        android:clipToPadding="false" />
 
     <fragment
         android:name="fb.ru.quizgame.GameLogFragment"
         android:id="@+id/fragment_game_log"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/pb_time_to_hint"
-        android:layout_above="@id/ll_answer"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_below="@id/gw_hint"
+        android:layout_above="@id/pb_timer" />
 
     <LinearLayout
         android:id="@+id/ll_answer"
@@ -50,7 +39,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:paddingBottom="4dp"
         android:orientation="horizontal">
 
@@ -79,4 +71,12 @@
             android:text="@string/button_next_text" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_timer"
+        style="@style/Timer"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_above="@id/ll_answer" />
+
 </RelativeLayout>

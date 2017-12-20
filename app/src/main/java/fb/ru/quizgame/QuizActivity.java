@@ -34,7 +34,7 @@ public class QuizActivity extends AppCompatActivity {
 
     @BindView(R.id.tv_question) TextView mQuestion;
     @BindView(R.id.gw_hint) GridView mHint;
-    @BindView(R.id.pb_time_to_hint) ProgressBar mTimeToHint;
+    @BindView(R.id.pb_timer) ProgressBar mTimeToHint;
     @BindView(R.id.btn_answer) Button mButtonAnswer;
     @BindView(R.id.btn_next) Button mButtonNext;
     @BindView(R.id.tv_answer) EditText mInputAnswer;
