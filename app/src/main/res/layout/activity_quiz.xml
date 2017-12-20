@@ -11,19 +11,14 @@
         android:id="@+id/tv_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@null"
         android:layout_alignParentTop="true"
-        android:background="@drawable/bg_question"
-        android:padding="8dp"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:elevation="2dp"/>
+        style="@style/Question" />
 
     <GridView
         android:id="@+id/gw_hint"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:horizontalSpacing="5dp"
+        android:horizontalSpacing="3dp"
         android:layout_below="@id/tv_question"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
@@ -33,7 +28,7 @@
 
     <ProgressBar
         android:id="@+id/pb_time_to_hint"
-        style="@style/ProgressBar"
+        style="@style/Timer"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_below="@id/gw_hint" />
@@ -46,26 +41,13 @@
         android:layout_below="@id/pb_time_to_hint"
         android:layout_above="@id/ll_answer" />
 
-
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/pb_time_to_hint"-->
-        <!--android:layout_above="@id/ll_answer"-->
-        <!--android:scrollbars="vertical">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_log"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" />-->
-    <!--</ScrollView>-->
-
     <LinearLayout
         android:id="@+id/ll_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
         <EditText
@@ -73,34 +55,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_answer"
-            android:padding="8dp"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_question"
-            android:inputType="textNoSuggestions"
-            android:maxLines="1"
+            style="@style/EditTextAnswer"
             android:layout_weight="2"/>
 
         <Button
             android:id="@+id/btn_answer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/button_answer_text"
-            android:layout_margin="3dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:background="@drawable/bg_button"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            android:text="@string/button_answer_text" />
 
         <Button
             android:id="@+id/btn_next"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/button_next_text"
-            android:layout_margin="3dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:background="@drawable/bg_button"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            android:text="@string/button_next_text" />
 
     </LinearLayout>
 </RelativeLayout>

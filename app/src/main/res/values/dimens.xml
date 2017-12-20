@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="level3">3dp</dimen>
+    <dimen name="level2">2dp</dimen>
+    <dimen name="level1">1dp</dimen>
+    <dimen name="level0">0dp</dimen>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ColoredButtonCompat" parent="Base.Widget.AppCompat.Button.Colored" >
+        <item name="android:elevation">@dimen/level2</item>
+    </style>
+    <style name="HintViewCompat">
+        <item name="android:elevation">@dimen/level2</item>
+    </style>
+    <style name="QuestionCompat">
+        <item name="android:elevation">@dimen/level2</item>
+    </style>
+</resources>

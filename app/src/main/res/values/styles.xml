@@ -1,15 +1,58 @@
 <resources>
-
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:buttonStyle">@style/ColoredButton</item>
     </style>
 
-    <style name="ProgressBar" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+    <!-- Buttons -->
+    <style name="ColoredButton" parent="ColoredButtonCompat">
+        <item name="android:background">@drawable/bg_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ColoredButtonCompat" parent="Base.Widget.AppCompat.Button.Colored" /> <!-- It's defines elevation for API 21+ -->
+
+    <!-- Game board elements -->
+    <style name="Question" parent="QuestionCompat" >
+        <item name="android:background">@drawable/bg_question</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="QuestionCompat" />
+
+    <style name="Timer" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/bg_timer</item>
     </style>
+
+    <style name="EditTextAnswer">
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_question</item>
+        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <!-- Hint elements -->
+    <style name="HintView" parent="HintViewCompat" >
+        <item name="android:background">@drawable/bg_hint_view</item> <!-- I need to define shape of view to avoid cutting off the shadow -->
+    </style>
+    <style name="HintViewCompat" /> <!-- It's defines elevation for API 21+ -->
+
+    <style name="HintItem">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:minHeight">50dp</item>
+    </style>
+    <style name="HintItem.Reverse">
+        <item name="android:background">@drawable/bg_hint_reverse</item>
+    </style>
+    <style name="HintItem.Obverse">
+        <item name="android:background">@drawable/bg_hint_obverse</item>
+    </style>
+
 
 </resources>
