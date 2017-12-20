@@ -27,7 +27,8 @@ public class QuestionRepository {
     public String getQuestion() {
         List<String> questions = new ArrayList<>();
         long start = System.nanoTime();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(mContext.getAssets().open("quiz.txt")))) {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(mContext.getAssets().open("quiz.txt")))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 questions.add(line);

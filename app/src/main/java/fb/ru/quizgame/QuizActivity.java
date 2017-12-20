@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -20,10 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -42,7 +37,6 @@ public class QuizActivity extends AppCompatActivity {
     @BindView(R.id.pb_time_to_hint) ProgressBar mTimeToHint;
     @BindView(R.id.btn_answer) Button mButtonAnswer;
     @BindView(R.id.btn_next) Button mButtonNext;
-    @BindView(R.id.tv_log) TextView mLog;
     @BindView(R.id.tv_answer) EditText mInputAnswer;
     private String mAnswer;
     private int mTime;
@@ -59,7 +53,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         ButterKnife.bind(this);
-        mAdapter = new ArrayAdapter<>(this, R.layout.item_hint, R.id.tv_hint_letter);
+        mAdapter = new ArrayAdapter<>(this, R.layout.item_hint, R.id.tv_hint_obverse);
         mHint.setAdapter(mAdapter);
         mHint.setOnItemClickListener((parent, view, position, id) -> {
             if (!isAnimating) {
@@ -93,16 +87,14 @@ public class QuizActivity extends AppCompatActivity {
             String answer = String.valueOf(mInputAnswer.getText());
             mInputAnswer.setText("");
             if (TextUtils.equals(mAnswer, answer)) {
-                appendToLog(Util.getColoredText(answer, getResources().getColor(R.color.colorPrimaryDark)));
-                appendToLog(Util.getColoredText("Это правильный ответ, время: " + mTime + " секунд",
-                        getResources().getColor(R.color.colorPrimary)));
+                appendToLog(GameLogFragment.MSG_TYPE_USER, answer);
+                appendToLog(GameLogFragment.MSG_TYPE_BOT, "Это правильный ответ, время: " + mTime + " секунд");
                 nextQuestion();
             } else {
-                appendToLog(Util.getColoredText(answer, getResources().getColor(R.color.colorAccent)));
+                appendToLog(GameLogFragment.MSG_TYPE_USER, Util.getColoredText(answer, getResources().getColor(R.color.colorAccent)));
             }
         });
-        appendToLog(Util.getColoredText("Начата новая викторина!",
-                getResources().getColor(R.color.colorPrimary)));
+        appendToLog(GameLogFragment.MSG_TYPE_BOT, "Начата новая викторина!");
     }
 
     @Override
@@ -144,8 +136,7 @@ public class QuizActivity extends AppCompatActivity {
         mHint.setNumColumns(mAdapter.getCount());
         mQuestion.setText(question);
         //
-        appendToLog(Util.getColoredText(String.format("Вопрос №%s", ++mQuestionNumber),
-                getResources().getColor(R.color.colorPrimary)));
+        appendToLog(GameLogFragment.MSG_TYPE_BOT, String.format("Вопрос №%s", ++mQuestionNumber));
         //
         startTimer();
     }
@@ -172,7 +163,7 @@ public class QuizActivity extends AppCompatActivity {
                 if (!isPaused) {
                     if (++mTime > TIME_TO_ANSWER) {
                         runOnUiThread(() -> {
-                            appendToLog("К сожалению, время на ответ истекло :(");
+                            appendToLog(GameLogFragment.MSG_TYPE_BOT, "К сожалению, время на ответ истекло :(");
                             nextQuestion();
                         });
                     } else {
@@ -185,9 +176,8 @@ public class QuizActivity extends AppCompatActivity {
         mTimer.schedule(mTimerTask, 0, TimeUnit.SECONDS.toMillis(1));
     }
 
-    private void appendToLog(CharSequence text) {
-        DateFormat format = new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
-        mLog.append("\n[" + format.format(new Date()) + "] ");
-        mLog.append(text);
+    private void appendToLog(int msgType, CharSequence text) {
+        GameLogFragment log = (GameLogFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_game_log);
+        log.appendToLog(msgType, text);
     }
 }

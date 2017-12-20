@@ -16,7 +16,8 @@
         android:background="@drawable/bg_question"
         android:padding="8dp"
         android:textSize="18sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:elevation="2dp"/>
 
     <GridView
         android:id="@+id/gw_hint"
@@ -37,18 +38,27 @@
         android:layout_height="3dp"
         android:layout_below="@id/gw_hint" />
 
-    <ScrollView
+    <fragment
+        android:name="fb.ru.quizgame.GameLogFragment"
+        android:id="@+id/fragment_game_log"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/pb_time_to_hint"
-        android:layout_above="@id/ll_answer"
-        android:scrollbars="vertical">
+        android:layout_above="@id/ll_answer" />
 
-        <TextView
-            android:id="@+id/tv_log"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/pb_time_to_hint"-->
+        <!--android:layout_above="@id/ll_answer"-->
+        <!--android:scrollbars="vertical">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_log"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--</ScrollView>-->
 
     <LinearLayout
         android:id="@+id/ll_answer"
