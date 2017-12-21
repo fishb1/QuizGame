@@ -1,4 +1,4 @@
-package fb.ru.quizgame;
+package fb.ru.quizgame.gameboard;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -19,6 +19,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import fb.ru.quizgame.BR;
+import fb.ru.quizgame.R;
+
 
 /**
  *
@@ -34,7 +37,10 @@ public class GameLogFragment extends Fragment {
         RESOURCES.put(MSG_TYPE_USER, R.layout.item_log_user);
     }
 
-    private GameLogAdapter mAdapter;
+    private GameLogAdapter mAdapter = new GameLogAdapter();
+
+    public GameLogFragment() {
+    }
 
     @Nullable
     @Override
@@ -42,7 +48,6 @@ public class GameLogFragment extends Fragment {
         RecyclerView mMainView = new RecyclerView(getContext(), null);
         mMainView.setHasFixedSize(true);
         mMainView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new GameLogAdapter();
         mMainView.setAdapter(mAdapter);
         return mMainView;
     }

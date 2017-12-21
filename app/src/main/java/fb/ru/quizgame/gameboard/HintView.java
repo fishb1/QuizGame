@@ -1,4 +1,4 @@
-package fb.ru.quizgame;
+package fb.ru.quizgame.gameboard;
 
 import android.content.Context;
 import android.util.AttributeSet;

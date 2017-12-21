@@ -1,5 +1,8 @@
 <resources>
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+
+    <style name="AppTheme" parent="BaseAppTheme" />
+
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -8,22 +11,23 @@
     </style>
 
     <!-- Buttons -->
-    <style name="ColoredButton" parent="ColoredButtonCompat">
+    <style name="ColoredButton" parent="BaseColoredButton" /> <!-- It's defines elevation for API 21+ -->
+    <style name="BaseColoredButton" parent="Base.Widget.AppCompat.Button.Colored">
         <item name="android:background">@drawable/bg_button</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
-    <style name="ColoredButtonCompat" parent="Base.Widget.AppCompat.Button.Colored" /> <!-- It's defines elevation for API 21+ -->
 
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <!-- Game board elements -->
-    <style name="Question" parent="QuestionCompat" >
+    <style name="Question" parent="BaseQuestion" />
+    <style name="BaseQuestion" >
         <item name="android:background">@drawable/bg_question</item>
         <item name="android:padding">8dp</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_margin">8dp</item>
     </style>
-    <style name="QuestionCompat" />
 
     <style name="Timer" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/bg_timer</item>
@@ -37,10 +41,10 @@
         <item name="android:maxLines">1</item>
     </style>
     <!-- Hint elements -->
-    <style name="HintView" parent="HintViewCompat" >
+    <style name="HintView" parent="BaseHintView" /> <!-- It's defines elevation for API 21+ -->
+    <style name="BaseHintView" >
         <item name="android:background">@drawable/bg_hint_view</item> <!-- I need to define shape of view to avoid cutting off the shadow -->
     </style>
-    <style name="HintViewCompat" /> <!-- It's defines elevation for API 21+ -->
 
     <style name="HintItem">
         <item name="android:gravity">center</item>

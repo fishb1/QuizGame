@@ -1,4 +1,4 @@
-package fb.ru.quizgame;
+package fb.ru.quizgame.model;
 
 import android.content.Context;
 import android.util.Log;

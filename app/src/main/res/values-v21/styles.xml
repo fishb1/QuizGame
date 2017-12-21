@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ColoredButtonCompat" parent="Base.Widget.AppCompat.Button.Colored" >
+
+    <style name="AppTheme" parent="BaseAppTheme" >
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="ColoredButton" parent="BaseColoredButton" >
         <item name="android:elevation">@dimen/level2</item>
     </style>
-    <style name="HintViewCompat">
+    <style name="HintView" parent="BaseHintView">
         <item name="android:elevation">@dimen/level2</item>
     </style>
-    <style name="QuestionCompat">
+    <style name="Question" parent="BaseQuestion">
         <item name="android:elevation">@dimen/level2</item>
     </style>
 </resources>

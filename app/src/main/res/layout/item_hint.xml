@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fb.ru.quizgame.HintView xmlns:android="http://schemas.android.com/apk/res/android"
+<fb.ru.quizgame.gameboard.HintView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,4 +17,4 @@
         android:layout_height="match_parent"
         style="@style/HintItem.Obverse"/>
 
-</fb.ru.quizgame.HintView>
+</fb.ru.quizgame.gameboard.HintView>
