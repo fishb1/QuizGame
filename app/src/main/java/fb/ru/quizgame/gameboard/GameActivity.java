@@ -9,8 +9,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +25,6 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
         ButterKnife.bind(this);
@@ -40,11 +39,11 @@ public class GameActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.frag_content);
         if (fragment == null) {
-            fragmentManager
-                    .beginTransaction()
+            fragmentManager.beginTransaction()
                     .add(R.id.frag_content, new GameFragment())
                     .commit();
         }
+        ViewGroup v;
     }
 
     @Override
