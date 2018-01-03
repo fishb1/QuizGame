@@ -66,7 +66,9 @@ public class GameFragment extends Fragment {
      */
     private void initRecycler() {
         mGameLog.setHasFixedSize(true);
-        mGameLog.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity());
+        lm.setStackFromEnd(true);
+        mGameLog.setLayoutManager(lm);
         mGameLog.setAdapter(new GameLogAdapter());
     }
 

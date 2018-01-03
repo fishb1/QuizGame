@@ -31,7 +31,8 @@ public class GameViewModel extends ViewModel {
     public final ObservableInt score = new ObservableInt(); // Очки
     public final ObservableInt time = new ObservableInt(); // Оставшееся врямя на ответ
     public final ObservableField<String> question = new ObservableField<>(); // Текущий вопрос
-    public final ObservableField<String> answer = new ObservableField<>(); // Ответ на текущий вопрос
+    public final ObservableField<String> answer = new ObservableField<>(); // Правильный ответ на текущий вопрос
+    public final ObservableField<String> guess = new ObservableField<>(); // Ответ пользователя на текущий вопрос
 
     private final QuestionRepository mQuestionsRepository;
     private Handler mHandler = new Handler(Looper.getMainLooper()); // Отвечает за отчет времени, обязательно в основном потоке, поскольку он обновлят данные адаптера
@@ -50,7 +51,6 @@ public class GameViewModel extends ViewModel {
     private void startTimer() {
         time.set(0);
         final long delay = TIME_TO_ANSWER * 10;
-//        Log.d(TAG, "Start new timer, delay=" + delay + " ms");
         mHandler.postDelayed(new Runnable() {
              @Override
              public void run() {
@@ -66,7 +66,6 @@ public class GameViewModel extends ViewModel {
     }
 
     private void stopTimer() {
-//        Log.d(TAG, "Stop timer");
         mHandler.removeCallbacksAndMessages(null);
     }
 
@@ -74,12 +73,16 @@ public class GameViewModel extends ViewModel {
 
     }
 
-    public void checkAnswer(String guess) {
-        appendToLog(GameLogAdapter.MSG_TYPE_USER, guess);
-        if (TextUtils.equals(guess.trim(), answer.get())) { // TODO: надо еще хотябы игнорировать регистр букв
-            score.set(score.get() + 3);
-            appendToLog(GameLogAdapter.MSG_TYPE_BOT, "Правильно! Ответ был дан за " + time.get() + " секунд");
-            nextQuestion();
+    public void checkGuess() {
+        String g = guess.get();
+        if (answer.get() != null && g != null && g.trim().length() > 0) {
+            appendToLog(GameLogAdapter.MSG_TYPE_USER, g);
+            guess.set(null);
+            if (answer.get().equalsIgnoreCase(g.trim())) {
+                score.set(score.get() + 3);
+                appendToLog(GameLogAdapter.MSG_TYPE_BOT, "Правильно! Ответ был дан за " + time.get() + " секунд");
+                nextQuestion();
+            }
         }
     }
 
