@@ -10,15 +10,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fb.ru.quizgame.R;
 
 public class GameActivity extends AppCompatActivity {
-
-    private static final String TAG = "GameActivity";
 
     @BindView(R.id.nav_view) NavigationView mNavView;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -32,9 +29,11 @@ public class GameActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setTitle(R.string.app_name);
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
+        if (ab != null) {
+            ab.setTitle(R.string.app_name);
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
         // Создать фрагмент содержимого, если его еще нет
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.frag_content);
@@ -43,7 +42,6 @@ public class GameActivity extends AppCompatActivity {
                     .add(R.id.frag_content, new GameFragment())
                     .commit();
         }
-        ViewGroup v;
     }
 
     @Override

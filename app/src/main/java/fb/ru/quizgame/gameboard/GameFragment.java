@@ -27,12 +27,7 @@ import fb.ru.quizgame.model.QuestionRepository;
  */
 public class GameFragment extends Fragment {
 
-    private static final String TAG = "GameFragment";
-
     @BindView(R.id.rv_game_log) RecyclerView mGameLog;
-
-    private GameViewModel mViewModel;
-    private GameFragmentBinding mBinding;
 
     public GameFragment() {
     }
@@ -40,8 +35,8 @@ public class GameFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = GameFragmentBinding.inflate(inflater, container, false);
-        mViewModel = ViewModelProviders.of(getActivity(), new ViewModelProvider.Factory() {
+        GameFragmentBinding mBinding = GameFragmentBinding.inflate(inflater, container, false);
+        GameViewModel mViewModel = ViewModelProviders.of(getActivity(), new ViewModelProvider.Factory() {
             @NonNull
             @Override
             @SuppressWarnings("unchecked")
